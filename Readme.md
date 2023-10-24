@@ -10,7 +10,6 @@ Welcome to **CryptChat** - where conversations remain truly private. Built on th
 
 1. **End-to-End Encryption**: Every message is secured from sender to receiver, ensuring utmost privacy.
 2. **User-Friendly Interface**: Navigating and messaging is intuitive and simple, making secure conversations a breeze.
-3. **Multi-Platform Support**: Whether on a desktop or mobile device, **CryptChat** is always at your fingertips.
 4. **Robust Backend**: Built on the powerful Python ecosystem, our chat is reliable and fast.
 5. **Open Source**: Dive into our codebase, contribute, and make it even better for everyone.
 6. **Multimedia Support**: Not just text - send encrypted images, videos, and files with ease.
