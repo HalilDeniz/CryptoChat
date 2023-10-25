@@ -1,6 +1,8 @@
 import socket
 import argparse
 import threading
+import os
+import platform
 from colorama import init, Fore, Style
 
 init(autoreset=True)
@@ -30,6 +32,7 @@ def start_client(host, port):
     print(Fore.BLUE + "Help Menu:")
     print("\t/exit       -> Exit the program.")
     print("\t/userlist   -> View the list of connected users.")
+    print("\t/clear   -> Clear the screen.")
 
     # Listen for messages from the server
     def listen_to_server():
@@ -50,12 +53,22 @@ def start_client(host, port):
                 client_socket.send(message.encode('utf-8'))
                 break
             client_socket.send(message.encode('utf-8'))
+
+            if message == "/clear":
+                system = platform.system()
+                if system == 'Windows':
+                    os.system('cls')
+                elif system == 'Linux' or system == 'Darwin':
+                    os.system('clear')
+                else:
+                    print("Bu işletim sistemi desteklenmiyor.")
+
         except ConnectionRefusedError as e:
             if e.errno == 111:
                 print("Connection refused")
             else:
                 print(f"An unknown error occurred {e}")
-
+        
         except KeyboardInterrupt:
             print(Fore.RED + "\nClosing connection...")
             client_socket.send("/exit".encode('utf-8'))
