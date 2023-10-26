@@ -101,11 +101,10 @@ options:
 - `--key `: The secret key for encryption
 
 ## Listener
-I wrote a listening [tool](https://denizhalil.com/2023/10/17/decrypting-encrypted-network-traffic-python-scapy) to see if encrypted messaging is working correctly
+I wrote a listening [**tool**](https://denizhalil.com/2023/10/17/decrypting-encrypted-network-traffic-python-scapy) to see if encrypted messaging is working correctly
 
 ```shell
 └─# python3 SCsniff.py 
-IP Pa
 IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
 TCP Packet: Source Port=12345, Destination Port=50968
 Raw Data: b'gAAAAABlOlxawZboULf0WJkQQkzVwJKLXbGh3qyxWYbaCqNhi5xLwhR9YdckSiPiPQCkWHHGSzKAKG5pW3HyatQnpekoR0Zl-_DH-WH_azjGm86QGW1PRnE='
