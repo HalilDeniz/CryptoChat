@@ -100,6 +100,102 @@ options:
 - `--port`: The port number to bind the server.
 - `--key `: The secret key for encryption
 
+## Listener
+I wrote a listening [tool](https://denizhalil.com/2023/10/17/decrypting-encrypted-network-traffic-python-scapy) to see if encrypted messaging is working correctly
+
+```shell
+└─# python3 SCsniff.py 
+IP Pa
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=50968
+Raw Data: b'gAAAAABlOlxawZboULf0WJkQQkzVwJKLXbGh3qyxWYbaCqNhi5xLwhR9YdckSiPiPQCkWHHGSzKAKG5pW3HyatQnpekoR0Zl-_DH-WH_azjGm86QGW1PRnE='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=50968
+Raw Data: b'gAAAAABlOlxawZboULf0WJkQQkzVwJKLXbGh3qyxWYbaCqNhi5xLwhR9YdckSiPiPQCkWHHGSzKAKG5pW3HyatQnpekoR0Zl-_DH-WH_azjGm86QGW1PRnE='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=50968, Destination Port=12345
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=50968, Destination Port=12345
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=50968, Destination Port=12345
+Raw Data: b'gAAAAABlOlxi-iTz2iF4Jso4PRjvKbKCbRrkDEZ1G8wQSlYFbxFKkoGEWZIOeTRj_ryvVFBZe4-ySWCvW4c57L0KMg8DrAyCog=='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=50968, Destination Port=12345
+Raw Data: b'gAAAAABlOlxi-iTz2iF4Jso4PRjvKbKCbRrkDEZ1G8wQSlYFbxFKkoGEWZIOeTRj_ryvVFBZe4-ySWCvW4c57L0KMg8DrAyCog=='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=50968
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=50968
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=50968
+Raw Data: b'gAAAAABlOlxiYUs_zPW3tHeakWcAXFR54Iy7ARW_ek0s1Xb-AEDLGyQu9LZS1B0Os4as7aJzRWh28WupcgiFD_C4chq0aqPXh1OGTP1MR6lMDrsG-TR5t3w='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=50968
+Raw Data: b'gAAAAABlOlxiYUs_zPW3tHeakWcAXFR54Iy7ARW_ek0s1Xb-AEDLGyQu9LZS1B0Os4as7aJzRWh28WupcgiFD_C4chq0aqPXh1OGTP1MR6lMDrsG-TR5t3w='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=42228
+Raw Data: b'gAAAAABlOlyD8gmRg8i7kWlwyd08VToH6J-TB0izWFc205LFQxxa-hF2g2UXmGUF4-mNvl2wwjSvmkk5sKNFaA-znsRyyBgxGRX7m6hZQHmVCqLTy5amsP8='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=42228
+Raw Data: b'gAAAAABlOlyD8gmRg8i7kWlwyd08VToH6J-TB0izWFc205LFQxxa-hF2g2UXmGUF4-mNvl2wwjSvmkk5sKNFaA-znsRyyBgxGRX7m6hZQHmVCqLTy5amsP8='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=42228, Destination Port=12345
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=42228, Destination Port=12345
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=42228, Destination Port=12345
+Raw Data: b'gAAAAABlOlyHDfYapDc2kawoEjNozSJybZBk0SxZwMiE2_x9OffGGc-NlaB3FHJue6jY3rQbBKseCkDATpnBgJRxLJQA6heDlw=='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=42228, Destination Port=12345
+Raw Data: b'gAAAAABlOlyHDfYapDc2kawoEjNozSJybZBk0SxZwMiE2_x9OffGGc-NlaB3FHJue6jY3rQbBKseCkDATpnBgJRxLJQA6heDlw=='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=42228
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=42228
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=42228
+Raw Data: b'gAAAAABlOlyHyCO4dV50WtplQ8eZxbH8d9xuL04iGsrbjhU-oFlguaaig0vjRd7GVvLiBm5Js6kFYHpc6esuTkDrmabq-k1DdSrlEHOgvdaMotxMMg5KEL8='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=12345, Destination Port=42228
+Raw Data: b'gAAAAABlOlyHyCO4dV50WtplQ8eZxbH8d9xuL04iGsrbjhU-oFlguaaig0vjRd7GVvLiBm5Js6kFYHpc6esuTkDrmabq-k1DdSrlEHOgvdaMotxMMg5KEL8='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=42228, Destination Port=12345
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=42228, Destination Port=12345
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=42228, Destination Port=12345
+Raw Data: b'gAAAAABlOlyPKyzTR_-1LFSNLtBCR5sghmont3299N9QWrQhHXzwo1Y-toax3Xh4f3PQ5cG-8QuOpM9ApGFoxkVGbpH4Bfhy9iYduQgwYy59kChiGwIQ1rI='
+--------------------------------------------------
+IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
+TCP Packet: Source Port=42228, Destination Port=12345
+Raw Data: b'gAAAAABlOlyPKyzTR_-1LFSNLtBCR5sghmont3299N9QWrQhHXzwo1Y-toax3Xh4f3PQ5cG-8QuOpM9ApGFoxkVGbpH4Bfhy9iYduQgwYy59kChiGwIQ1rI='
+--------------------------------------------------
+```
+
+
+
 ## Contributing
 
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
