@@ -1,6 +1,6 @@
 # **CryptChat**: Beyond Secure Messaging 🛡️
 
-<img src="source/server-client-and-listener.png">
+<img src="source/cryptochat.png">
 
 Welcome to **CryptChat** - where conversations remain truly private. Built on the robust Python ecosystem, our application ensures that every word you send is wrapped in layers of encryption. Whether you're discussing sensitive business details or sharing personal stories, **CryptChat** provides the sanctuary you need in the digital age. Dive in, and experience the next level of secure messaging!
 
@@ -10,10 +10,12 @@ Welcome to **CryptChat** - where conversations remain truly private. Built on th
 
 1. **End-to-End Encryption**: Every message is secured from sender to receiver, ensuring utmost privacy.
 2. **User-Friendly Interface**: Navigating and messaging is intuitive and simple, making secure conversations a breeze.
+3. **Multi-Platform Support**: Whether on a desktop or mobile device, **CryptChat** is always at your fingertips.
 4. **Robust Backend**: Built on the powerful Python ecosystem, our chat is reliable and fast.
 5. **Open Source**: Dive into our codebase, contribute, and make it even better for everyone.
-6. **Multimedia Support**: Not just text - send encrypted images, videos, and files with ease.
+6. **Multimedia Support**: Not just text - send encrypted images, videos, and files with ease. (Demo)
 7. **Group Chats**: Have encrypted conversations with multiple people at once.
+8. **Adaptive Encryption Modes**: Choose between unencrypted and encrypted chat modes as per your need
 
 ---
 
@@ -49,14 +51,17 @@ Welcome to **CryptChat** - where conversations remain truly private. Built on th
 
    ```shell
 $ python3 server.py --help
-usage: server.py [-h] [--host HOST] [--port PORT]
+usage: server.py [-h] [--host HOST] [--port PORT] [--loglevel {DEBUG,INFO,WARNING,ERROR,CRITICAL}] [--logfile LOGFILE]
 
 Start the chat server.
 
 options:
-  -h, --help   show this help message and exit
-  --host HOST  The IP address to bind the server to.
-  --port PORT  The port number to bind the server to.
+  -h, --help            show this help message and exit
+  --host HOST           The IP address to bind the server to. (Default: 0.0.0.0)
+  --port PORT           The port number to bind the server to. (Default: 12345)
+  --loglevel {DEBUG,INFO,WARNING,ERROR,CRITICAL}
+                        Set the logging level (Default: INFO)
+  --logfile LOGFILE     Set the log file name. (Default: server.log
 --------------------------------------------------------------------------
 $ python3 client.py --help
 usage: client.py [-h] [--host HOST] [--port PORT]
@@ -73,15 +78,18 @@ options:
 
 ```shell
 $ python3 serverE.py --help
-usage: serverE.py [-h] [--host HOST] [--port PORT] [--key KEY]
+usage: serverE.py [-h] [--host HOST] [--port PORT] [--key KEY] [--loglevel {DEBUG,INFO,WARNING,ERROR,CRITICAL}] [--logfile LOGFILE]
 
 Start the chat server.
 
 options:
-  -h, --help   show this help message and exit
-  --host HOST  The IP address to bind the server to. (Default=0.0.0.0)
-  --port PORT  The port number to bind the server to. (Default=12345)
-  --key KEY    The secret key for encryption. (Default=mysecretpassword)
+  -h, --help            show this help message and exit
+  --host HOST           The IP address to bind the server to. (Default=0.0.0.0)
+  --port PORT           The port number to bind the server to. (Default=12345)
+  --key KEY             The secret key for encryption. (Default=mysecretpassword)
+  --loglevel {DEBUG,INFO,WARNING,ERROR,CRITICAL}
+                        Set the logging level (Default: INFO)
+  --logfile LOGFILE     Set the log file name. (Default: server.log)
 --------------------------------------------------------------------------
 $ python3 clientE.py --help
 usage: clientE.py [-h] [--host HOST] [--port PORT] [--key KEY]
@@ -95,14 +103,38 @@ options:
   --key KEY    The secret key for encryption. (Default=mysecretpassword)
 ```
 
-- `--help`: show this help message and exit
-- `--host`: The IP address to bind the server.
-- `--port`: The port number to bind the server.
-- `--key `: The secret key for encryption
+- `--help`    : show this help message and exit
+- `--host`    : The IP address to bind the server.
+- `--port`    : The port number to bind the server.
+- `--key `    : The secret key for encryption
+- `--loglevel`: Set the logging level
+- `--logfile` : Set the log file name
+
+## An example work from within the program
+```shell
+python3 clientE.py 
+Enter your username: deniz
+Help Menu:
+	/help       -> Help menu
+deniz: Enter your message: /help
+deniz: Enter your message: 
+Help Menu:
+	/help                           -> Help Menu
+	/exit                           -> Exit the program.
+	/userlist                       -> View the list of connected users.
+	/dm [user] [message]            -> Send a direct message to a user.
+	/changeuser [new_username]      -> Change your username.
+
+deniz: Enter your message: 
+[2023-10-30 07:38:18] denizhalil: hello im denizhalil
+deniz: Enter your message: Hello denizhalil, it's deniz
+deniz: Enter your message: /changeuser Warrior
+Username changed to Warrior.
+Warrior: Enter your message: 
+```
 
 ## Listener
 I wrote a listening [**tool**](https://denizhalil.com/2023/10/17/decrypting-encrypted-network-traffic-python-scapy) to see if encrypted messaging is working correctly
-
 ```shell
 └─# python3 SCsniff.py 
 IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
@@ -116,46 +148,6 @@ Raw Data: b'gAAAAABlOlxawZboULf0WJkQQkzVwJKLXbGh3qyxWYbaCqNhi5xLwhR9YdckSiPiPQCk
 IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
 TCP Packet: Source Port=50968, Destination Port=12345
 --------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=50968, Destination Port=12345
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=50968, Destination Port=12345
-Raw Data: b'gAAAAABlOlxi-iTz2iF4Jso4PRjvKbKCbRrkDEZ1G8wQSlYFbxFKkoGEWZIOeTRj_ryvVFBZe4-ySWCvW4c57L0KMg8DrAyCog=='
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=50968, Destination Port=12345
-Raw Data: b'gAAAAABlOlxi-iTz2iF4Jso4PRjvKbKCbRrkDEZ1G8wQSlYFbxFKkoGEWZIOeTRj_ryvVFBZe4-ySWCvW4c57L0KMg8DrAyCog=='
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=12345, Destination Port=50968
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=12345, Destination Port=50968
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=12345, Destination Port=50968
-Raw Data: b'gAAAAABlOlxiYUs_zPW3tHeakWcAXFR54Iy7ARW_ek0s1Xb-AEDLGyQu9LZS1B0Os4as7aJzRWh28WupcgiFD_C4chq0aqPXh1OGTP1MR6lMDrsG-TR5t3w='
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=12345, Destination Port=50968
-Raw Data: b'gAAAAABlOlxiYUs_zPW3tHeakWcAXFR54Iy7ARW_ek0s1Xb-AEDLGyQu9LZS1B0Os4as7aJzRWh28WupcgiFD_C4chq0aqPXh1OGTP1MR6lMDrsG-TR5t3w='
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=12345, Destination Port=42228
-Raw Data: b'gAAAAABlOlyD8gmRg8i7kWlwyd08VToH6J-TB0izWFc205LFQxxa-hF2g2UXmGUF4-mNvl2wwjSvmkk5sKNFaA-znsRyyBgxGRX7m6hZQHmVCqLTy5amsP8='
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=12345, Destination Port=42228
-Raw Data: b'gAAAAABlOlyD8gmRg8i7kWlwyd08VToH6J-TB0izWFc205LFQxxa-hF2g2UXmGUF4-mNvl2wwjSvmkk5sKNFaA-znsRyyBgxGRX7m6hZQHmVCqLTy5amsP8='
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=42228, Destination Port=12345
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=42228, Destination Port=12345
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
 TCP Packet: Source Port=42228, Destination Port=12345
 Raw Data: b'gAAAAABlOlyHDfYapDc2kawoEjNozSJybZBk0SxZwMiE2_x9OffGGc-NlaB3FHJue6jY3rQbBKseCkDATpnBgJRxLJQA6heDlw=='
 --------------------------------------------------
@@ -165,24 +157,13 @@ Raw Data: b'gAAAAABlOlyHDfYapDc2kawoEjNozSJybZBk0SxZwMiE2_x9OffGGc-NlaB3FHJue6jY
 --------------------------------------------------
 IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
 TCP Packet: Source Port=12345, Destination Port=42228
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=12345, Destination Port=42228
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=12345, Destination Port=42228
 Raw Data: b'gAAAAABlOlyHyCO4dV50WtplQ8eZxbH8d9xuL04iGsrbjhU-oFlguaaig0vjRd7GVvLiBm5Js6kFYHpc6esuTkDrmabq-k1DdSrlEHOgvdaMotxMMg5KEL8='
 --------------------------------------------------
 IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
 TCP Packet: Source Port=12345, Destination Port=42228
 Raw Data: b'gAAAAABlOlyHyCO4dV50WtplQ8eZxbH8d9xuL04iGsrbjhU-oFlguaaig0vjRd7GVvLiBm5Js6kFYHpc6esuTkDrmabq-k1DdSrlEHOgvdaMotxMMg5KEL8='
 --------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=42228, Destination Port=12345
---------------------------------------------------
-IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
-TCP Packet: Source Port=42228, Destination Port=12345
---------------------------------------------------
+
 IP Packet: Source IP=127.0.0.1, Destination IP=127.0.0.1
 TCP Packet: Source Port=42228, Destination Port=12345
 Raw Data: b'gAAAAABlOlyPKyzTR_-1LFSNLtBCR5sghmont3299N9QWrQhHXzwo1Y-toax3Xh4f3PQ5cG-8QuOpM9ApGFoxkVGbpH4Bfhy9iYduQgwYy59kChiGwIQ1rI='
@@ -192,8 +173,6 @@ TCP Packet: Source Port=42228, Destination Port=12345
 Raw Data: b'gAAAAABlOlyPKyzTR_-1LFSNLtBCR5sghmont3299N9QWrQhHXzwo1Y-toax3Xh4f3PQ5cG-8QuOpM9ApGFoxkVGbpH4Bfhy9iYduQgwYy59kChiGwIQ1rI='
 --------------------------------------------------
 ```
-
-
 
 ## Contributing
 
