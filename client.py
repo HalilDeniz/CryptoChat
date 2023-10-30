@@ -28,23 +28,28 @@ def start_client(host, port):
             break
         print(Fore.RED + response)
     print(Fore.BLUE + "Help Menu:")
-    print("\t/exit       -> Exit the program.")
-    print("\t/userlist   -> View the list of connected users.")
+    print("\t/help       -> Help menu")
 
     # Listen for messages from the server
     def listen_to_server():
+        nonlocal username  # Make sure we can modify the outer scope's username variable
         while True:
             data = client_socket.recv(1024).decode('utf-8')
             if not data:
                 break
             with message_lock:
-                print(f"{Fore.GREEN}\n{data}\n{Style.RESET_ALL}{Fore.YELLOW}Enter your message: {Style.RESET_ALL}", end='')
+                # Check for username change confirmation and update if found
+                if "Username changed to " in data:
+                    username = data.split("Username changed to ")[1].rstrip(".")  # Extract the new username
+                    print(f"{Fore.GREEN}\n{data}\n{Style.RESET_ALL}{username}:{Fore.YELLOW} Enter your message: {Style.RESET_ALL}",end='')
+                else:
+                    print(f"{Fore.GREEN}\n{data}\n{Style.RESET_ALL}{username}:{Fore.YELLOW} Enter your message: {Style.RESET_ALL}",end='')
 
     threading.Thread(target=listen_to_server, daemon=True).start()
 
     while True:
         try:
-            print(f"{Fore.YELLOW}Enter your message: {Style.RESET_ALL}", end='')
+            print(f"{username}: {Fore.YELLOW}Enter your message: {Style.RESET_ALL}", end='')
             message = input()
             if message == "/exit":
                 client_socket.send(message.encode('utf-8'))
