@@ -40,36 +40,61 @@ def start_client(host, port):
         except KeyboardInterrupt:
             quit(0)
     print(Fore.BLUE + "Help Menu:")
-    print("\t/exit       -> Exit the program.")
-    print("\t/userlist   -> View the list of connected users.")
+    print("\t/help       -> Help menu")
 
     # Listen for messages from the server
     def listen_to_server():
+        nonlocal username  # Make sure we can modify the outer scope's username variable
         while True:
-            encrypted_data = client_socket.recv(1024)
-            decrypted_data = cipher.decrypt(encrypted_data).decode('utf-8')
-            if not decrypted_data:
-                break
-            with message_lock:
-                print(f"{Fore.GREEN}\n{decrypted_data}\n{Style.RESET_ALL}{Fore.YELLOW}Enter your message: {Style.RESET_ALL}", end='')
+            try:
+                encrypted_data = client_socket.recv(1024)
+                decrypted_data = cipher.decrypt(encrypted_data).decode('utf-8')
+                if not decrypted_data:
+                    break
+                with message_lock:
+                    # Check for username change confirmation and update if found
+                    if "Username changed to " in decrypted_data:
+                        username = decrypted_data.split("Username changed to ")[1].rstrip(".")  # Extract the new username
+                        print(
+                            f"{Fore.GREEN}\n{decrypted_data}\n{Style.RESET_ALL}{username}:{Fore.YELLOW} Enter your message: {Style.RESET_ALL}", end='')
+                    else:
+                        print(
+                            f"{Fore.GREEN}\n{decrypted_data}\n{Style.RESET_ALL}{username}:{Fore.YELLOW} Enter your message: {Style.RESET_ALL}", end='')
+            except cryptography.fernet.InvalidToken:
+                continue
+            except BrokenPipeError as e:
+                if e.errno == "32":
+                    continue
+                else:
+                    print(e)
 
     threading.Thread(target=listen_to_server, daemon=True).start()
 
     while True:
         try:
-            print(f"{Fore.YELLOW}Enter your message: {Style.RESET_ALL}", end='')
+            print(f"{username}:{Fore.YELLOW} Enter your message: {Style.RESET_ALL}", end='')
             message = input()
+            if not message:
+                continue
             encrypted_message = cipher.encrypt(message.encode('utf-8'))
             client_socket.send(encrypted_message)
             if message == "/exit":
                 break
+        except cryptography.fernet.InvalidToken:
+            continue
         except ConnectionRefusedError as e:
             print(f"An unknown error occurred {e}")
             break
+        except BrokenPipeError as e:
+            if e.errno == 32:
+                continue
+            else:
+                print(e)
         except KeyboardInterrupt:
             print(Fore.RED + "\nClosing connection...")
             client_socket.send(cipher.encrypt("/exit".encode('utf-8')))
             break
+
 
     client_socket.close()
 
