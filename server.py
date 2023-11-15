@@ -1,4 +1,5 @@
 import os
+import platform
 import socket
 import logging
 import argparse
@@ -51,6 +52,7 @@ class ClientHandler(threading.Thread):
                     pass
                 else:
                     print(f"An unknown error occurred: {e}")
+                    logging.info(f"An unknown error occurred: {e}")
                 return
         # Process messages
         try:
@@ -64,13 +66,15 @@ class ClientHandler(threading.Thread):
                         continue
                 if message == "/help":
                     response = Fore.BLUE + "Help Menu:\n" \
-                                        "\t/help                           -> Help Menu\n" \
-                                        "\t/exit                           -> Exit the program.\n" \
-                                        "\t/userlist                       -> View the list of connected users.\n" \
-                                        "\t/dm [user] [message]            -> Send a direct message to a user.\n" \
-                                        "\t/changeuser [new_username]      -> Change your username.\n"
+                                           "\t/help                           -> Help Menu\n" \
+                                           "\t/exit                           -> Exit the program.\n" \
+                                           "\t/clear                          -> Clear the chat screen.\n" \
+                                           "\t/userlist                       -> View the list of connected users.\n" \
+                                           "\t/dm [user] [message]            -> Send a direct message to a user.\n" \
+                                           "\t/changeuser [new_username]      -> Change your username.\n"
                     self.client_socket.send(response.encode('utf-8'))
                     continue
+
                 if message.startswith("/changeuser "):
                     _, new_username = message.split()
                     with clients_lock:
@@ -95,6 +99,11 @@ class ClientHandler(threading.Thread):
                         else:
                             self.client_socket.send("Specified user not found.".encode('utf-8'))
                     continue
+
+                if message == "/clear":
+                    self.client_socket.send("/clear".encode('utf-8'))
+                    continue
+
                 if not message or message == "/exit":
                     break
                 current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -109,6 +118,7 @@ class ClientHandler(threading.Thread):
         # Cleanup when the client exits
         with clients_lock:
             del clients[self.username]
+            logging.info(f"The user left: {username}")
         self.client_socket.close()
 
 def start_server(host, port):
