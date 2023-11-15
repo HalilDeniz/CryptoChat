@@ -110,7 +110,7 @@ options:
 - `--loglevel`: Set the logging level
 - `--logfile` : Set the log file name
 
-## An example work from within the program
+## **help** menu from within the program
 ```shell
 python3 clientE.py 
 Enter your username: deniz
@@ -127,11 +127,6 @@ Help Menu:
 	/changeuser [new_username]      -> Change your username.
 
 deniz: Enter your message: 
-[2023-10-30 07:38:18] denizhalil: hello im denizhalil
-deniz: Enter your message: Hello denizhalil, it's deniz
-deniz: Enter your message: /changeuser Warrior
-Username changed to Warrior.
-Warrior: Enter your message: 
 ```
 
 ## Listener
