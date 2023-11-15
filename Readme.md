@@ -121,6 +121,7 @@ deniz: Enter your message:
 Help Menu:
 	/help                           -> Help Menu
 	/exit                           -> Exit the program.
+  	/clear                          -> Clear the chat screen.
 	/userlist                       -> View the list of connected users.
 	/dm [user] [message]            -> Send a direct message to a user.
 	/changeuser [new_username]      -> Change your username.
