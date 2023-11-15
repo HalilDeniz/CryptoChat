@@ -1,6 +1,6 @@
 # **CryptChat**: Beyond Secure Messaging 🛡️
 
-<img src="source/cryptochat.png">
+<img src="source/server-client-listener-1.png">
 
 Welcome to **CryptChat** - where conversations remain truly private. Built on the robust Python ecosystem, our application ensures that every word you send is wrapped in layers of encryption. Whether you're discussing sensitive business details or sharing personal stories, **CryptChat** provides the sanctuary you need in the digital age. Dive in, and experience the next level of secure messaging!
 
