@@ -1,16 +1,16 @@
-# **CryptChat**: Beyond Secure Messaging 🛡️
+# **CryptoChat**: Beyond Secure Messaging 🛡️
 
 <img src="source/server-client-listener-1.png">
 
-Welcome to **CryptChat** - where conversations remain truly private. Built on the robust Python ecosystem, our application ensures that every word you send is wrapped in layers of encryption. Whether you're discussing sensitive business details or sharing personal stories, **CryptChat** provides the sanctuary you need in the digital age. Dive in, and experience the next level of secure messaging!
+Welcome to **CryptoChat** - where conversations remain truly private. Built on the robust Python ecosystem, our application ensures that every word you send is wrapped in layers of encryption. Whether you're discussing sensitive business details or sharing personal stories, **CryptoChat** provides the sanctuary you need in the digital age. Dive in, and experience the next level of secure messaging!
 
 ---
 
-## Features of **CryptChat** 🌟
+## Features of **CryptoChat** 🌟
 
 1. **End-to-End Encryption**: Every message is secured from sender to receiver, ensuring utmost privacy.
 2. **User-Friendly Interface**: Navigating and messaging is intuitive and simple, making secure conversations a breeze.
-3. **Multi-Platform Support**: Whether on a desktop or mobile device, **CryptChat** is always at your fingertips.
+3. **Multi-Platform Support**: Whether on a desktop or mobile device, **CryptoChat** is always at your fingertips.
 4. **Robust Backend**: Built on the powerful Python ecosystem, our chat is reliable and fast.
 5. **Open Source**: Dive into our codebase, contribute, and make it even better for everyone.
 6. **Multimedia Support**: Not just text - send encrypted images, videos, and files with ease. (Demo)
@@ -181,7 +181,7 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 
 ## Contact
 
-If you have any questions, comments, or suggestions about CryptChat, please feel free to contact me:
+If you have any questions, comments, or suggestions about CryptoChat, please feel free to contact me:
 
 - LinkedIn: [Halil Ibrahim Deniz](https://www.linkedin.com/in/halil-ibrahim-deniz/)
 - TryHackMe: [Halilovic](https://tryhackme.com/p/halilovic)
