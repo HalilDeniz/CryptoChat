@@ -56,11 +56,14 @@ class ClientHandler(threading.Thread):
                         break
             except cryptography.fernet.InvalidToken:
                 print(Fore.RED + f"Error with client: The encryption key is invalid or data is corrupted.")
+                logging.info("Error with client: The encryption key is invalid or data is corrupted")
                 continue
             except OSError as e:
                     print(f"Error: {e}")
+                    logging.info(f"Error: {e}")
             except BrokenPipeError as e:
                 print(f"An unknown error occurred: {e}")
+                logging.info(f"An unknown error occurred: {e}")
             return
 
         # Process messages
@@ -79,6 +82,7 @@ class ClientHandler(threading.Thread):
                     response = Fore.BLUE + "Help Menu:\n" \
                                           "\t/help                           -> Help Menu\n" \
                                           "\t/exit                           -> Exit the program.\n" \
+                                          "\t/clear                          -> Clear the chat screen.\n" \
                                           "\t/userlist                       -> View the list of connected users.\n" \
                                           "\t/dm [user] [message]            -> Send a direct message to a user.\n" \
                                           "\t/changeuser [new_username]      -> Change your username.\n"
@@ -96,8 +100,7 @@ class ClientHandler(threading.Thread):
                             del clients[self.username]
                             self.username = new_username
                             clients[self.username] = self.client_socket
-                            encrypted_success = cipher.encrypt(
-                                f"Username changed to {new_username}.".encode('utf-8'))
+                            encrypted_success = cipher.encrypt(f"Username changed to {new_username}.".encode('utf-8'))
                             self.client_socket.send(encrypted_success)
                     continue
                 if message.startswith("/dm "):
@@ -112,9 +115,15 @@ class ClientHandler(threading.Thread):
                             self.client_socket.send(encrypted_error)
                     continue
 
+                if message == "/clear":
+                    encrypted_command = cipher.encrypt("/clear".encode("utf-8"))
+                    self.client_socket.send(encrypted_command)
+                    continue
+
 
 
                 if not message or message == "/exit":
+                    logging.info(f"Exit {message}")
                     break
                 current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 broadcast_message = f"[{current_time}] {self.username}: {message}"
@@ -129,6 +138,7 @@ class ClientHandler(threading.Thread):
         # Cleanup when the client exits
         with clients_lock:
             del clients[self.username]
+            logging.info(f"The user left: {username}")
         self.client_socket.close()
 
 def start_server(host, port):
